@@ -1,6 +1,5 @@
 const express = require("express");
 const mongoose = require("./database/db"); // Assuming you have a db.js file for MongoDB connection
-const corsMiddleware = require("./middlewares/corsMiddleware");
 const errorMiddleware = require("./middlewares/errorMiddleware");
 const dataRoutes = require('./routes/data');
 const cors = require('cors');
