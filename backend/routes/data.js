@@ -4,7 +4,6 @@ const mongoose = require('mongoose');
 
 const collectionName = 'jsondata';
 
-// Fetch first 50 records
 router.get('/', async (req, res) => {
     try {
         const documents = await mongoose.connection.db.collection(collectionName).find({}).toArray();
@@ -31,24 +30,34 @@ router.get('/', async (req, res) => {
 router.get('/year/:year', async (req, res) => {
     try {
         const { year } = req.params;
-        if (year.length !== 4) {
+
+        // Validate year format
+        if (!/^\d{4}$/.test(year)) {
             return res.status(400).json({
                 success: false,
-                message: "Invalid year"
+                message: "Invalid year format. Please provide a valid year in YYYY format."
             });
         }
 
+        // Fetch documents matching the year
         const documents = await mongoose.connection.db.collection(collectionName).find({
-            $or: [{ start_year: year }, { end_year: year }, { published: { $regex: year, $options: 'i' } },
-                { added: { $regex: year, $options: 'i' } }]
+            $or: [
+                { start_year: parseInt(year) },
+                { end_year: parseInt(year) },
+                { published: { $regex: year, $options: 'i' } }, // Case-insensitive regex match
+                { added: { $regex: year, $options: 'i' } } // Case-insensitive regex match
+            ]
         }).toArray();
 
+        // Handle no documents found
         if (!documents || documents.length === 0) {
-            return res.status(400).json({
+            return res.status(404).json({
                 success: false,
-                message: "No Data Found"
+                message: `No data found for year ${year}`
             });
         }
+
+        // Return successful response with data
         return res.status(200).json({
             success: true,
             message: `Filtered by year ${year}`,
@@ -56,12 +65,15 @@ router.get('/year/:year', async (req, res) => {
         });
 
     } catch (err) {
+        // Handle internal server error
+        console.error("Error fetching data:", err);
         return res.status(500).json({
             success: false,
             message: "Internal Server Error"
         });
     }
 });
+
 
 // Fetch data filtered by region
 router.get('/region/:region', async (req, res) => {
