@@ -1,0 +1,21 @@
+/* Header.css */
+.header {
+    background-color: #166d83; /* Dark background color */
+    color: #ffffff; /* White text color */
+    padding: 10px 0; /* Padding around the header */
+    text-align: center; /* Center-align text */
+}
+
+.container {
+    max-width: 1200px; /* Maximum width of content */
+    margin: 0 auto; /* Center content horizontally */
+    padding: 0 20px; /* Padding inside container */
+}
+
+.header__title {
+    font-size: 24px; /* Font size of the title */
+    margin: 0; /* Remove default margin */
+    padding: 10px 0; /* Padding inside the title */
+}
+
+
