@@ -3,10 +3,10 @@ const mongoose = require("./database/db"); // Assuming you have a db.js file for
 const corsMiddleware = require("./middlewares/corsMiddleware");
 const errorMiddleware = require("./middlewares/errorMiddleware");
 const dataRoutes = require('./routes/data');
-app.use(corsMiddleware);
-
+const cors = require('cors');
 const app = express();
 const PORT = process.env.PORT || 3421;
+app.use(cors());
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
