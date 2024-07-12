@@ -7,7 +7,7 @@ const collectionName = 'jsondata';
 // Fetch first 50 records
 router.get('/', async (req, res) => {
     try {
-        const documents = await mongoose.connection.db.collection(collectionName).find({}).limit(50).toArray();
+        const documents = await mongoose.connection.db.collection(collectionName).find({}).toArray();
         if (!documents || documents.length === 0) {
             return res.status(400).json({
                 success: false,
