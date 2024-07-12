@@ -15,13 +15,12 @@ app.use(errorMiddleware);
 app.use('/data', dataRoutes);
 
 app.get("/", (req, res) => {
-    return res.send(`<div style = "background:magenta;padding:100px;"><h2>Data Virtualization BE</h2>
+    return res.send(`<div style = "background:orange;padding:100px;"><h2>Data Visualization BE</h2>
     <p>Below are the some supported routes...</p>
         <div><ul>
             <li>GET all data from the database - /data</li>
             <li>GET data filtered by year - /data/year/:year</li>
             <li>GET data filtered by region - /data/region/:region</li>
-            <li>Much more...</li>
         </ul></div>
     </div>`)
 });
