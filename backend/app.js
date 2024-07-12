@@ -3,14 +3,14 @@ const mongoose = require("./database/db"); // Assuming you have a db.js file for
 const corsMiddleware = require("./middlewares/corsMiddleware");
 const errorMiddleware = require("./middlewares/errorMiddleware");
 const dataRoutes = require('./routes/data');
-
+app.use(corsMiddleware);
 
 const app = express();
 const PORT = process.env.PORT || 3421;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(corsMiddleware);
+
 app.use(errorMiddleware);
 
 app.use('/data', dataRoutes);
